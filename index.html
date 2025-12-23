@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A en Rojo | Comparte con amigos</title>
+    <meta name="description" content="Una página simple con una letra A negra sobre fondo rojo">
+    <meta property="og:title" content="A en Rojo">
+    <meta property="og:description" content="Mira esta letra A negra sobre fondo rojo">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630/ff0000/000000?text=A">
+    <meta property="og:url" content="">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #ff0000;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        /* Contenedor principal */
+        .contenedor {
+            text-align: center;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Estilo de la letra A */
+        .letra-a {
+            color: #000000;
+            font-size: 40vmin;
+            font-weight: 900;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            line-height: 1;
+            margin-bottom: 30px;
+        }
+        
+        /* Panel de compartir */
+        .share-panel {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .share-panel h3 {
+            margin-bottom: 15px;
+            font-weight: 500;
+            color: #ffcccc;
+        }
+        
+        .url-container {
+            display: flex;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #333;
+        }
+        
+        .url-input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: none;
+            background-color: #222;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .copy-btn {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background-color: #555;
+        }
+        
+        .copy-btn.copied {
+            background-color: #4CAF50;
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .share-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.2s, opacity 0.2s;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+        
+        .whatsapp {
+            background-color: #25D366;
+        }
+        
+        .facebook {
+            background-color: #3b5998;
+        }
+        
+        .twitter {
+            background-color: #1DA1F2;
+        }
+        
+        .telegram {
+            background-color: #0088cc;
+        }
+        
+        .toggle-share {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .toggle-share:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .share-icon {
+            font-size: 20px;
+        }
+        
+        .instructions {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+            max-width: 500px;
+            padding: 0 20px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .letra-a {
+                font-size: 30vmin;
+            }
+            
+            .share-panel {
+                width: 95%;
+                padding: 15px;
+            }
+            
+            .share-buttons {
+                gap: 8px;
+            }
+            
+            .share-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .letra-a {
+                font-size: 25vmin;
+                margin-bottom: 20px;
+            }
+            
+            .share-panel {
+                padding: 12px;
+            }
+            
+            .share-buttons {
+                flex-direction: column;
+            }
+            
+            .share-btn {
+                width: 100%;
+            }
+        }
+    </style>
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="contenedor">
+        <div class="letra-a">A</div>
+        
+        <button class="toggle-share" id="toggleShare">
+            <i class="fas fa-share-alt share-icon"></i>
+            Compartir con amigos
+        </button>
+        
+        <div class="instructions">
+            Comparte esta página con tus amigos haciendo clic en el botón de arriba
+        </div>
+    </div>
+    
+    <div class="share-panel hidden" id="sharePanel">
+        <h3>Compartir esta página</h3>
+        
+        <div class="url-container">
+            <input type="text" class="url-input" id="pageUrl" value="" readonly>
+            <button class="copy-btn" id="copyBtn">Copiar</button>
+        </div>
+        
+        <div class="share-buttons">
+            <a href="#" class="share-btn whatsapp" id="whatsappBtn" target="_blank">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="#" class="share-btn facebook" id="facebookBtn" target="_blank">
+                <i class="fab fa-facebook-f"></i> Facebook
+            </a>
+            <a href="#" class="share-btn twitter" id="twitterBtn" target="_blank">
+                <i class="fab fa-twitter"></i> Twitter
+            </a>
+            <a href="#" class="share-btn telegram" id="telegramBtn" target="_blank">
+                <i class="fab fa-telegram-plane"></i> Telegram
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // Obtener la URL actual de la página
+        const currentUrl = window.location.href;
+        document.getElementById('pageUrl').value = currentUrl;
+        
+        // Actualizar metaetiquetas para compartir
+        document.querySelector('meta[property="og:url"]').content = currentUrl;
+        
+        // Configurar enlaces de compartir
+        const shareText = encodeURIComponent('Mira esta página con una letra A negra sobre fondo rojo');
+        const shareUrl = encodeURIComponent(currentUrl);
+        
+        document.getElementById('whatsappBtn').href = `https://wa.me/?text=${shareText}%20${shareUrl}`;
+        document.getElementById('facebookBtn').href = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+        document.getElementById('twitterBtn').href = `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
+        document.getElementById('telegramBtn').href = `https://t.me/share/url?url=${shareUrl}&text=${shareText}`;
+        
+        // Alternar panel de compartir
+        document.getElementById('toggleShare').addEventListener('click', function() {
+            const sharePanel = document.getElementById('sharePanel');
+            sharePanel.classList.toggle('hidden');
+            
+            if (!sharePanel.classList.contains('hidden')) {
+                // Seleccionar automáticamente el texto del URL al mostrar el panel
+                document.getElementById('pageUrl').select();
+            }
+        });
+        
+        // Copiar URL al portapapeles
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const urlInput = document.getElementById('pageUrl');
+            urlInput.select();
+            urlInput.setSelectionRange(0, 99999); // Para dispositivos móviles
+            
+            try {
+                // Intentar usar la API moderna del portapapeles
+                navigator.clipboard.writeText(urlInput.value).then(() => {
+                    // Mostrar confirmación
+                    const originalText = this.textContent;
+                    this.textContent = '¡Copiado!';
+                    this.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                        this.classList.remove('copied');
+                    }, 2000);
+                });
+            } catch (err) {
+                // Fallback para navegadores más antiguos
+                document.execCommand('copy');
+                
+                // Mostrar confirmación
+                const originalText = this.textContent;
+                this.textContent = '¡Copiado!';
+                this.classList.add('copied');
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.classList.remove('copied');
+                }, 2000);
+            }
+        });
+        
+        // Cerrar panel de compartir al hacer clic fuera de él
+        document.addEventListener('click', function(event) {
+            const sharePanel = document.getElementById('sharePanel');
+            const toggleBtn = document.getElementById('toggleShare');
+            
+            // Si el clic no fue en el panel, ni en el botón de alternar, ni dentro del panel
+            if (!sharePanel.classList.contains('hidden') && 
+                !sharePanel.contains(event.target) && 
+                !toggleBtn.contains(event.target)) {
+                sharePanel.classList.add('hidden');
+            }
+        });
+        
+        // Mensaje en consola para compartir
+        console.log("¡Comparte esta página con tus amigos!");
+        console.log("URL para compartir: " + currentUrl);
+    </script>
+</body>
+</html>
