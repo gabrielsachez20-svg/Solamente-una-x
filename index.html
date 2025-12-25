@@ -6,6 +6,9 @@
   <!-- Bloquea zoom -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+  <!-- ✅ Etiqueta de verificación de Google -->
+  <meta name="google-site-verification" content="hhGAUjBtkU4ef_K7b-Gz95p7x55ECDQq6uwpgdHCISw" />
+
   <style>
     html, body {
       margin: 0;
@@ -75,13 +78,12 @@
       font-weight: bold;
     }
 
-    /* Animación de caída */
+    /* Animaciones */
     @keyframes fall {
       0% { top: 50%; }
       100% { top: 80%; }
     }
 
-    /* Animación de movimiento loco */
     @keyframes crazyMove {
       0%   { top: 70%; left: 45%; }
       25%  { top: 40%; left: 55%; }
@@ -90,15 +92,9 @@
       100% { top: 70%; left: 45%; }
     }
 
-    .fall {
-      animation: fall 4s forwards;
-    }
+    .fall { animation: fall 4s forwards; }
+    .crazy { animation: crazyMove 5s infinite; }
 
-    .crazy {
-      animation: crazyMove 5s infinite;
-    }
-
-    /* Fondo animado */
     @keyframes bgMove {
       0% { background-position: left center; }
       50% { background-position: right center; }
@@ -106,7 +102,7 @@
     }
 
     .bgImage {
-      background-image: url('/attachments/3J3bvYHRKzMfRaMT9vnn7.jpeg'); /* tu imagen */
+      background-image: url('/attachments/3J3bvYHRKzMfRaMT9vnn7.jpeg');
       background-size: cover;
       background-repeat: no-repeat;
       animation: bgMove 10s infinite linear;
@@ -117,14 +113,11 @@
   <!-- Contenedor de anuncios -->
   <div id="adsContainer">
     <div class="adBox">
-      <!-- 🔽 Aquí pega el código de tu anuncio de la izquierda -->
-      <!-- Ejemplo: Google AdSense, banner, iframe, etc. -->
+      <!-- Aquí pega el código de tu anuncio de la izquierda -->
       Anuncio Izquierda
     </div>
-
     <div class="adBox">
-      <!-- 🔽 Aquí pega el código de tu anuncio de la derecha -->
-      <!-- Ejemplo: Google AdSense, banner, iframe, etc. -->
+      <!-- Aquí pega el código de tu anuncio de la derecha -->
       Anuncio Derecha
     </div>
   </div>
@@ -145,40 +138,27 @@
     const message = document.getElementById("message");
     let randomMoveInterval;
 
-    // Ocultar mensaje después de 3 segundos
-    setTimeout(() => {
-      message.style.display = "none";
-    }, 3000);
+    setTimeout(() => { message.style.display = "none"; }, 3000);
 
     letterA.addEventListener("click", () => {
       count++;
       counter.textContent = "Clicks: " + count;
 
-      if (count === 10) {
-        letterA.classList.add("fall");
-      }
+      if (count === 10) letterA.classList.add("fall");
+      if (count === 30) { letterA.classList.remove("fall"); letterA.classList.add("crazy"); }
+      if (count === 50) document.body.classList.add("bgImage");
 
-      if (count === 30) {
-        letterA.classList.remove("fall");
-        letterA.classList.add("crazy");
-      }
-
-      if (count === 50) {
-        document.body.classList.add("bgImage");
-      }
-
-      // Movimiento aleatorio antes de llegar a 60
       if (count === 50) {
         randomMoveInterval = setInterval(() => {
           if (count < 60) {
-            const randomTop = Math.floor(Math.random() * 70) + 20; // entre 20% y 90%
-            const randomLeft = Math.floor(Math.random() * 70) + 15; // entre 15% y 85%
+            const randomTop = Math.floor(Math.random() * 70) + 20;
+            const randomLeft = Math.floor(Math.random() * 70) + 15;
             letterA.style.top = randomTop + "%";
             letterA.style.left = randomLeft + "%";
           } else {
-            clearInterval(randomMoveInterval); // detener al llegar a 60
+            clearInterval(randomMoveInterval);
           }
-        }, 1000); // cada segundo cambia posición
+        }, 1000);
       }
 
       if (count >= 100) {
